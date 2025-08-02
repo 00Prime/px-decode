@@ -2,26 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
-:root,section  {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+:root, section {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 15, 23, 42; /* slate-900 */
+  --background-end-rgb: 30, 41, 59;   /* slate-800 */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root,section   {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-body,section  {
+body, section {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
-      transparent,
+      rgb(var(--background-start-rgb)),
       rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    );
+}
+
+/* Common button styles */
+.btn {
+  @apply px-4 py-2 rounded-md font-medium transition-all duration-200;
+}
+
+.btn-primary {
+  @apply bg-primary-600 hover:bg-primary-700 text-white shadow-md hover:shadow-lg;
+}
+
+.btn-secondary {
+  @apply bg-secondary-600 hover:bg-secondary-700 text-white shadow-md hover:shadow-lg;
+}
+
+/* Card styling */
+.card {
+  @apply bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg shadow-lg p-5 border border-slate-700;
+}
+
+/* Input styling */
+input, textarea, select {
+  @apply bg-slate-800 border border-slate-600 rounded-md p-2 text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent;
 }

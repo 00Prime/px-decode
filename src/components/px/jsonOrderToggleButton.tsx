@@ -21,26 +21,26 @@ export default function JsonOrderToggleButton({
   }, [orderPayloadKey]);
 
   return (
-    <div className={"flex"}>
-      <p className={"text-white font-Exo font-semibold mt-1 mr-1"}>
+    <div className={"flex items-center"}>
+      <p className={"text-primary-300 font-medium text-sm mr-2"}>
         {"Order Keys"}
       </p>
-      <div className={"  "}>
+      <div>
         <Switch
           checked={orderPayloadKey}
           onChange={setOrderPayloadKey}
-          className={`border-[1px] border-indigo-400 relative inline-flex h-[32px] w-[116px] items-center rounded-[4px]`}
+          className={`border border-primary-600 relative inline-flex h-[32px] w-[116px] items-center rounded-md shadow-md`}
         >
           <span
             className={`${
               orderPayloadKey ? "translate-x-[-1px]" : "translate-x-[60px]"
-            } inline-block h-[34px] w-[55px] transform transition relative bg-indigo-700 rounded-[4px]`}
+            } inline-block h-[30px] w-[55px] transform transition-all duration-200 relative bg-primary-600 rounded-md`}
           />
           <div
             className={"flex justify-between text-white w-full absolute px-4"}
           >
-            <span className={orderPayloadKey ? "" : "text-gray-800"}>Yes</span>
-            <span className={orderPayloadKey ? "text-gray-800" : ""}>No</span>
+            <span className={orderPayloadKey ? "font-medium" : "text-slate-500"}>Yes</span>
+            <span className={orderPayloadKey ? "text-slate-500" : "font-medium"}>No</span>
           </div>
         </Switch>
       </div>

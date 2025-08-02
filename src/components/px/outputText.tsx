@@ -16,7 +16,7 @@ export default function OutputText({
   return (
     <textarea
       className={
-        "bg-gradient-to-b from-darkCustomColour to-[#0c0a16] basis-1/2 rounded-md focus:ring-0 focus:outline-0 resize-none text-white p-2"
+        "bg-slate-900 border border-slate-700 basis-1/2 rounded-md focus:ring-0 focus:outline-0 resize-none text-primary-300 font-mono p-3 shadow-md"
       }
       placeholder={
         decode

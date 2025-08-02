@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 const reverseEv = (e: string, t: number, n: string): number[] => {
   for (
       var r = reverseIe(decode(n), 10),
@@ -47,15 +45,15 @@ const WV = function (
   return Math.floor(((t - e) / (n - e)) * (o - r) + r);
 };
 
-const reverseFa = (t: string, r: string, n: number[]) => {
+const reverseFa = (t: string, r: string, n: number[]): string => {
   let splitPayload: string[] = [];
   for (let o = 0, i = 0; i < t.length; i++) {
-    var current = n[i] - i - o;
+    var current: number = n[i] - i - o;
     splitPayload.splice(o, 0, ...r.slice(0, current));
     r = r.slice(current);
     o = n[i] - i - 1;
   }
-  var base6Payload = Buffer.from(
+  var base6Payload: string = Buffer.from(
       splitPayload.join("").slice(0, -t.length) + r,
       "base64"
   ).toString("ascii");
@@ -69,9 +67,9 @@ export default function deobfuscate(
     encodedPayload: string,
     uuid: string,
     sts: string
-) {
-  var newsts = sts.length === 0 ? "1604064986000" : sts;
-  const reverseFv = reverseIe(decode(newsts), 10);
+): string {
+  var newsts: string = sts.length === 0 ? "1604064986000" : sts;
+  const reverseFv: string = reverseIe(decode(newsts), 10);
 
   return reverseFa(
       reverseFv,

@@ -21,15 +21,15 @@ function Dropdown({
       {({ open }) => (
         <>
           <div className="relative">
-            <Listbox.Button className=" cursor-selector rounded-md border border-gray-300 bg-white py-1 pl-3 pr-10 text-left sm:text-sm text-black w-full">
+            <Listbox.Button className="cursor-pointer rounded-md border border-slate-600 bg-slate-800 py-2 pl-3 pr-10 text-left sm:text-sm text-white w-full hover:border-primary-400 transition-colors">
               <span className="flex items-center">
-                <span className="ml-3 block truncate">
+                <span className="ml-2 block truncate font-medium">
                   {decode ? "Decode" : "Encode"}
                 </span>
               </span>
               <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
                 <ChevronUpDownIcon
-                  className="h-5 w-5 text-gray-400"
+                  className="h-5 w-5 text-slate-400"
                   aria-hidden="true"
                 />
               </span>
@@ -42,14 +42,14 @@ function Dropdown({
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+              <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-slate-800 py-1 text-base shadow-lg ring-1 ring-primary-600 focus:outline-none sm:text-sm">
                 {mode.map((option, index) => (
                   <Listbox.Option
                     key={index}
                     className={({ active }) =>
                       classNames(
-                        active ? "bg-indigo-600 text-white" : "text-gray-900",
-                        "relative cursor-default select-none py-2 pl-3 pr-9"
+                        active ? "bg-primary-600 text-white" : "text-slate-200",
+                        "relative cursor-pointer select-none py-2 pl-3 pr-9 transition-colors"
                       )
                     }
                     value={option.id ? true : false}
@@ -60,7 +60,7 @@ function Dropdown({
                           <span
                             className={classNames(
                               selected ? "font-semibold" : "font-normal",
-                              "ml-3 block truncate"
+                              "ml-2 block truncate"
                             )}
                           >
                             {option.name}
@@ -70,7 +70,7 @@ function Dropdown({
                         {selected ? (
                           <span
                             className={classNames(
-                              active ? "text-white" : "text-indigo-600",
+                              active ? "text-white" : "text-primary-300",
                               "absolute inset-y-0 right-0 flex items-center pr-4"
                             )}
                           >

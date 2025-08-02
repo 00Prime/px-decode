@@ -48,30 +48,37 @@ export default function ShareButton({
   };
   return (
     <div className="flex items-center space-x-4">
-      <div className="relative inline-block text-left">
-        <Menu>
-          <Menu.Button className="bg-blue-500 w-28 text-white px-4 py-[5px] rounded hover:bg-blue-600 flex items-center mb-3">
-            <ArrowTopRightOnSquareIcon className="h-5 w-5 mr-2" />
-            Share
+      <Menu as="div" className="relative inline-block text-left">
+        <div>
+          <Menu.Button className="inline-flex items-center space-x-2 px-3 py-2 rounded-md bg-primary-600 hover:bg-primary-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 focus-visible:ring-opacity-75 text-sm text-white font-medium transition-all shadow-md">
+            <ArrowTopRightOnSquareIcon
+              className="h-4 w-4 mr-1 text-white group-hover:text-white"
+              aria-hidden="true"
+            />
+            <span>Share</span>
           </Menu.Button>
-          <Menu.Items className="absolute mt-2 w-28 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
-            {ttlOptions.map((option, index) => (
-              <Menu.Item key={index}>
-                {({ active }) => (
-                  <button
-                    className={`${
-                      active ? "bg-blue-500 text-white" : "text-gray-900"
-                    } group flex rounded-md items-center w-full text-sm px-7 py-2 `}
-                    onClick={() => handleSelect(option.hourValue)}
-                  >
-                    {option.time}
-                  </button>
-                )}
-              </Menu.Item>
+        </div>
+        <div>
+          <Menu.Items className="absolute z-10 mt-2 w-56 origin-top-right divide-y divide-slate-700 rounded-md bg-slate-800 shadow-lg ring-1 ring-primary-500 ring-opacity-50 focus:outline-none">
+            {ttlOptions.map((option, i) => (
+              <div className="px-1 py-1" key={i}>
+                <Menu.Item>
+                  {({ active }) => (
+                    <button
+                      className={`${
+                        active ? "bg-primary-600 text-white" : "text-slate-200"
+                      } group flex w-full items-center rounded-md px-3 py-2 text-sm transition-colors`}
+                      onClick={() => handleSelect(option.hourValue)}
+                    >
+                      {option.time}
+                    </button>
+                  )}
+                </Menu.Item>
+              </div>
             ))}
           </Menu.Items>
-        </Menu>
-      </div>
+        </div>
+      </Menu>
     </div>
   );
 }

@@ -26,12 +26,12 @@ export default function DeleteButton() {
   }
   return (
     <TrashIcon
-      className="transform transition-transform duration-200 hover:scale-105 cursor-pointer"
+      className="text-red-500 hover:text-red-400 transform transition-all duration-200 hover:scale-105 cursor-pointer"
       onClick={() => {
         deletePx();
         router.push("/px");
       }}
-      width={34}
+      width={30}
     />
   );
 }

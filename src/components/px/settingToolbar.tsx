@@ -31,10 +31,10 @@ export default function SettingToolBar({
   IsOwner?: boolean;
 }) {
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between items-center bg-slate-800 rounded-t-lg p-2 border-b border-slate-600">
       <div
         className={
-          "flex px-2 md:justify-center md:flex-row flex-col gap-2 mb-4 pt-4 flex-grow"
+          "flex px-2 md:justify-center md:flex-row flex-col gap-3 mb-2 pt-2 flex-grow"
         }
       >
         <Dropdown

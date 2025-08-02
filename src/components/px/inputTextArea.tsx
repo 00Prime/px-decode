@@ -15,7 +15,7 @@ export default function InputTextArea({
   return (
     <textarea
       className={
-        "bg-gradient-to-b from-darkCustomColour to-[#0c0a16] basis-1/2 rounded-md focus:ring-0 focus:outline-0 resize-none text-white p-2 h-full"
+        "bg-slate-900 border border-slate-700 basis-1/2 rounded-md focus:ring-2 focus:ring-primary-500 focus:outline-none focus:border-transparent resize-none text-white p-3 h-full shadow-md"
       }
       // @ts-ignore
       onChange={(e) => setStartPayload(e.target.value)}
