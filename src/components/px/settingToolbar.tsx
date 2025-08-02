@@ -31,53 +31,41 @@ export default function SettingToolBar({
   IsOwner?: boolean;
 }) {
   return (
-    <div className="flex justify-between items-center bg-slate-800 rounded-t-lg p-2 border-b border-slate-600">
-      <div
-        className={
-          "flex px-2 md:justify-center md:flex-row flex-col gap-3 mb-2 pt-2 flex-grow"
-        }
-      >
-        <Dropdown
-          decode={decode}
-          setDecode={setDecode}
-          disabled={shareMode}
-        ></Dropdown>
-        <SettingButton
-          buttonTitle={"uuid"}
-          value={uuid}
-          setValue={setUuid}
-          disabled={shareMode}
-        ></SettingButton>
-        <SettingButton
-          buttonTitle={"sts"}
-          value={sts}
-          setValue={setSts}
-          disabled={shareMode}
-        ></SettingButton>
-        <div className={"flex space-x-2 gap-6"}>
+    <div className="bg-gradient-to-r from-slate-800 to-slate-700 border-b border-slate-600 p-4">
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="flex flex-wrap items-center gap-4 flex-1">
+          <Dropdown
+            decode={decode}
+            setDecode={setDecode}
+            disabled={shareMode}
+          />
+          <SettingButton
+            buttonTitle={"UUID"}
+            value={uuid}
+            setValue={setUuid}
+            disabled={shareMode}
+          />
+          <SettingButton
+            buttonTitle={"STS"}
+            value={sts}
+            setValue={setSts}
+            disabled={shareMode}
+          />
           <JsonOrderToggleButton
             orderPayloadKey={orderPayloadKey}
             setOrderPayloadKey={setOrderPayloadKey}
-          ></JsonOrderToggleButton>
-          <div className={"block lg:hidden"}>
-            {shareMode ? (
-              IsOwner ? (
-                <DeleteButton />
-              ) : null
-            ) : (
-              <ShareButton decode={decode} payload={startPayload} />
-            )}
-          </div>
+          />
         </div>
-      </div>
-      <div className={" mr-4 hidden lg:block"}>
-        {shareMode ? (
-          IsOwner ? (
-            <DeleteButton />
-          ) : null
-        ) : (
-          <ShareButton decode={decode} payload={startPayload} />
-        )}
+        
+        <div className="flex items-center gap-2">
+          {shareMode ? (
+            IsOwner ? (
+              <DeleteButton />
+            ) : null
+          ) : (
+            <ShareButton decode={decode} payload={startPayload} />
+          )}
+        </div>
       </div>
     </div>
   );
