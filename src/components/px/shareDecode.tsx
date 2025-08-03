@@ -129,7 +129,7 @@ export default function ShareDecode({
         }
       }
     }
-  }, [payload, uuid, sts]);
+  }, [payload, uuid, sts, decode]);
 
   return (
     <div className={"w-full h-full relative"}>

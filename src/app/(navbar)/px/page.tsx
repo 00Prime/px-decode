@@ -175,7 +175,7 @@ export default function Px() {
     };
 
     processPayload();
-  }, [payload, uuid, sts]);
+  }, [payload, uuid, sts, decode]);
 
   // Response decoder effect
   useEffect(() => {

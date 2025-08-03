@@ -49,7 +49,7 @@ const reverseFa = (t: string, r: string, n: number[]): string => {
   let splitPayload: string[] = [];
   for (let o = 0, i = 0; i < t.length; i++) {
     var current: number = n[i] - i - o;
-    splitPayload.splice(o, 0, ...r.slice(0, current));
+    splitPayload.splice(o, 0, ...Array.from(r.slice(0, current)));
     r = r.slice(current);
     o = n[i] - i - 1;
   }
