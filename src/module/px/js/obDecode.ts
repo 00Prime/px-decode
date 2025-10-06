@@ -47,76 +47,13 @@ function decodeResponse(obPayload: string, version: string): string[] | null {
     }
 }
 
-// Command code mapping for PerimeterX responses
-const commandCodeMap: Record<string, string> = {
-    'OOlllO': 'bake',
-    'OOOOOO': 'vid',
-    'lOOlOO': 'sid',
-    'OllllOlO': 'sts',
-    'OlllOlOl': 'cts',
-    'OlOllO': 'cs',
-    'OOllll': 'wcs',
-    'lOOOlO': 'cls',
-    'OllllOOl': 'drc',
-    'OlllOOlO': 'pxhd',
-    'OOOOlO': 'ci',
-    'OlOlOO': 'pnf',
-    '0lll0000': 'challenge_result',
-};
-
-// Interface for parsed PX response
-interface ParsedPxResponse {
-    [key: string]: string[] | undefined;
-    bake?: string[];
-    vid?: string[];
-    sid?: string[];
-    sts?: string[];
-    cts?: string[];
-    cs?: string[];
-    wcs?: string[];
-    cls?: string[];
-    drc?: string[];
-    pxhd?: string[];
-    ci?: string[];
-    pnf?: string[];
-    challenge_result?: string[];
-    sff?: string[];
-    sffe?: string[];
-}
-
-// Parse PerimeterX response commands
-function parsePxResponse(commands: string[]): ParsedPxResponse {
-    const parsedResponse: ParsedPxResponse = {};
-
+// Parse PerimeterX response commands into array
+function parsePxResponse(commands: string[]): string[][] {
     if (!commands || !Array.isArray(commands)) {
-        return parsedResponse;
+        return [];
     }
 
-    for (const command of commands) {
-        const parts: string[] = command.split('|');
-        const code: string | undefined = parts.shift();
-
-        if (!code) continue;
-
-        const cleanName: string | undefined = commandCodeMap[code];
-
-        if (cleanName) {
-            parsedResponse[cleanName] = parts;
-        } else if (code === 'lOlllO') {
-            // Set Feature Flag (sff)
-            parsedResponse.sff = parts;
-        } else if (code === 'lOllll') {
-            // Set Feature Flags Empty (sffe)
-            if (parts.length > 0) {
-                parsedResponse.sffe = parts[0].split(',');
-            }
-        } else {
-            // Unknown command
-            parsedResponse[`unknown_${code}`] = parts;
-        }
-    }
-
-    return parsedResponse;
+    return commands.map(command => command.split('|'));
 }
 
 // Decode request payload (base64 encoded JSON)
@@ -143,8 +80,8 @@ function runDemo() {
     console.log("Raw decoded:", decodedResponse);
     
     if (decodedResponse) {
-        const parsedResponse = parsePxResponse(decodedResponse);
-        console.log("Parsed response:", JSON.stringify(parsedResponse, null, 2));
+        const parsedCommands = parsePxResponse(decodedResponse);
+        console.log("Split commands:", parsedCommands);
     }
 
     console.log("\n" + "=".repeat(50) + "\n");
@@ -167,8 +104,8 @@ function runDemo() {
         "lOllll|feature2,feature3"
     ];
     
-    const parsedCommands = parsePxResponse(exampleCommands);
-    console.log("Parsed commands:", JSON.stringify(parsedCommands, null, 2));
+    const splitCommands = parsePxResponse(exampleCommands);
+    console.log("Split commands:", splitCommands);
 }
 
 // Only attach to window in browser environment
