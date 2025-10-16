@@ -30,6 +30,15 @@ export default function EnhancedResponseDecoder({
   const [copiedInput, setCopiedInput] = useState(false);
   const [copiedOutput, setCopiedOutput] = useState(false);
 
+  const isValidJson = useCallback((str: string) => {
+    try {
+      JSON.parse(str);
+      return true;
+    } catch {
+      return false;
+    }
+  }, []);
+
   const handleCopyInput = useCallback(async () => {
     if (!responsePayload) return;
     
@@ -46,13 +55,27 @@ export default function EnhancedResponseDecoder({
     if (!decodedResponse) return;
     
     try {
-      await navigator.clipboard.writeText(decodedResponse);
+      // Ensure we copy the properly formatted text
+      let textToCopy = decodedResponse;
+      
+      // If it's valid JSON, ensure it's properly formatted
+      if (isValidJson(decodedResponse)) {
+        try {
+          const parsed = JSON.parse(decodedResponse);
+          textToCopy = JSON.stringify(parsed, null, 2);
+        } catch {
+          // If parsing fails, use the original
+          textToCopy = decodedResponse;
+        }
+      }
+      
+      await navigator.clipboard.writeText(textToCopy);
       setCopiedOutput(true);
       setTimeout(() => setCopiedOutput(false), 2000);
     } catch (err) {
       console.error('Failed to copy text: ', err);
     }
-  }, [decodedResponse]);
+  }, [decodedResponse, isValidJson]);
 
   const handlePaste = useCallback(async () => {
     try {
@@ -62,15 +85,6 @@ export default function EnhancedResponseDecoder({
       console.error('Failed to paste text: ', err);
     }
   }, [setResponsePayload]);
-
-  const isValidJson = (str: string) => {
-    try {
-      JSON.parse(str);
-      return true;
-    } catch {
-      return false;
-    }
-  };
 
   return (
     <div className="mb-8">
@@ -190,7 +204,7 @@ export default function EnhancedResponseDecoder({
           {/* Output Section */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <label className="block text-sm font-medium text-white flex items-center gap-2">
+              <label className="flex items-center gap-2 text-sm font-medium text-white">
                 Decoded Response
                 {isProcessing && <LoadingSpinner size="sm" />}
               </label>
@@ -245,6 +259,9 @@ export default function EnhancedResponseDecoder({
                       minHeight: '200px',
                       maxHeight: '400px',
                       overflow: 'auto',
+                      overflowX: 'auto',
+                      wordBreak: 'break-all',
+                      whiteSpace: 'pre-wrap',
                     }}
                     showLineNumbers={true}
                     wrapLines={true}

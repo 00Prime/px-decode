@@ -28,19 +28,7 @@ export default function EnhancedOutputText({
 }: EnhancedOutputTextProps) {
   const [copied, setCopied] = useState(false);
 
-  const handleCopy = useCallback(async () => {
-    if (!finalPayload) return;
-    
-    try {
-      await navigator.clipboard.writeText(finalPayload);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy text: ', err);
-    }
-  }, [finalPayload]);
-
-  const getLanguage = () => {
+  const getLanguage = useCallback(() => {
     if (!finalPayload) return 'text';
     
     // Try to detect if it's JSON
@@ -54,7 +42,34 @@ export default function EnhancedOutputText({
       }
       return 'text';
     }
-  };
+  }, [finalPayload]);
+
+  const handleCopy = useCallback(async () => {
+    if (!finalPayload) return;
+    
+    try {
+      // Ensure we copy the properly formatted text
+      // If it's JSON, ensure it's properly formatted
+      let textToCopy = finalPayload;
+      
+      // Try to parse and re-stringify to ensure consistent formatting
+      if (getLanguage() === 'json') {
+        try {
+          const parsed = JSON.parse(finalPayload);
+          textToCopy = JSON.stringify(parsed, null, 2);
+        } catch {
+          // If parsing fails, use the original
+          textToCopy = finalPayload;
+        }
+      }
+      
+      await navigator.clipboard.writeText(textToCopy);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    }
+  }, [finalPayload, getLanguage]);
 
   const getPlaceholder = () => {
     return decode
@@ -122,6 +137,9 @@ export default function EnhancedOutputText({
               fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace',
               height: '100%',
               overflow: 'auto',
+              overflowX: 'auto',
+              wordBreak: 'break-all',
+              whiteSpace: 'pre-wrap',
             }}
             showLineNumbers={getLanguage() === 'json'}
             wrapLines={true}
