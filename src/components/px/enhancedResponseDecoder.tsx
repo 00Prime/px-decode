@@ -234,7 +234,7 @@ export default function EnhancedResponseDecoder({
               </button>
             </div>
 
-            <div className="border border-slate-600 rounded-lg overflow-hidden bg-slate-900 shadow-lg relative">
+            <div className="border border-slate-600 rounded-lg overflow-hidden bg-slate-900 shadow-lg relative min-w-0">
               {isProcessing && (
                 <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm z-10 flex items-center justify-center">
                   <div className="flex items-center gap-3 text-slate-300">
@@ -260,7 +260,9 @@ export default function EnhancedResponseDecoder({
                       maxHeight: '400px',
                       overflow: 'auto',
                       overflowX: 'auto',
-                      wordBreak: 'break-all',
+                      maxWidth: '100%',
+                      wordBreak: 'break-word',
+                      overflowWrap: 'anywhere',
                       whiteSpace: 'pre-wrap',
                     }}
                     showLineNumbers={true}

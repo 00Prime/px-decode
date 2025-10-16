@@ -44,7 +44,7 @@ export default function EnhancedInputTextArea({
   };
 
   return (
-    <div className="flex flex-col basis-1/2 h-full">
+    <div className="flex flex-col basis-1/2 h-full min-w-0">
       {/* Header with title and action buttons */}
       <div className="flex items-center justify-between mb-2">
         <h3 className="text-sm font-medium text-slate-300">{title}</h3>
@@ -97,6 +97,7 @@ export default function EnhancedInputTextArea({
           className={`
             w-full h-full p-4 bg-slate-900 resize-none text-white font-mono text-sm
             focus:outline-none placeholder-slate-500 leading-relaxed
+            whitespace-pre-wrap break-words
             ${disabled ? 'cursor-not-allowed' : ''}
           `}
           onChange={(e) => setStartPayload?.(e.target.value)}

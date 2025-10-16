@@ -16,7 +16,12 @@ async function getData(context: any): Promise<ShareResponse | undefined> {
     };
   }
 
-  const res = await fetch(`${process.env.HOST}/api/px/share/${id}`, {
+  // Use VERCEL_URL for Vercel deployments or fallback to localhost for development
+  const baseUrl = process.env.VERCEL_URL 
+    ? `https://${process.env.VERCEL_URL}` 
+    : process.env.HOST || 'http://localhost:3000';
+
+  const res = await fetch(`${baseUrl}/api/px/share/${id}`, {
     next: { revalidate: 5 },
     headers: header,
   });

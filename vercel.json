@@ -1,5 +1,15 @@
 {
   "github": {
     "silent": true
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/api/px/share",
+      "destination": "/api/px/share.go"
+    },
+    {
+      "source": "/api/px/share/:id",
+      "destination": "/api/px/share/[id].go"
+    }
+  ]
 }

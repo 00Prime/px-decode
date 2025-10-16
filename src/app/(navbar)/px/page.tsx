@@ -252,7 +252,7 @@ export default function Px() {
             shareMode={false}
           />
           
-          <div className={"flex md:flex-row flex-col gap-6 p-6 h-full min-h-[500px]"}>
+          <div className={"flex md:flex-row flex-col gap-6 p-6 h-full min-h-[500px] overflow-hidden"}>
             <EnhancedInputTextArea
               decode={decode}
               payload={payload}

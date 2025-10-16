@@ -80,7 +80,7 @@ export default function EnhancedOutputText({
   };
 
   return (
-    <div className="flex flex-col basis-1/2 h-full">
+    <div className="flex flex-col basis-1/2 h-full min-w-0">
       {/* Header with title and copy button */}
       <div className="flex items-center justify-between mb-2">
         <h3 className="text-sm font-medium text-slate-300 flex items-center gap-2">
@@ -114,7 +114,7 @@ export default function EnhancedOutputText({
       </div>
 
       {/* Content area */}
-      <div className="flex-1 border border-slate-600 rounded-lg overflow-hidden bg-slate-900 shadow-lg relative">
+  <div className="flex-1 border border-slate-600 rounded-lg overflow-hidden bg-slate-900 shadow-lg relative min-w-0">
         {isProcessing && (
           <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm z-10 flex items-center justify-center">
             <div className="flex items-center gap-3 text-slate-300">
@@ -138,7 +138,9 @@ export default function EnhancedOutputText({
               height: '100%',
               overflow: 'auto',
               overflowX: 'auto',
-              wordBreak: 'break-all',
+              maxWidth: '100%',
+              wordBreak: 'break-word',
+              overflowWrap: 'anywhere',
               whiteSpace: 'pre-wrap',
             }}
             showLineNumbers={getLanguage() === 'json'}
